@@ -5,14 +5,17 @@ const defaultResultMsg = () =>
     <h2>There is nothing to see here</h2>
 
 const renderPosters = (films) => 
-    films.map(({Poster, Title}, index) => 
-        <div key={`poster-${index}`}className="poster-container">
-            <img className="poster" alt={Title} src={Poster} />
+    films.map(({Poster, Title}, index) =>
+        <div className="result-container">
+            <div key={`poster-${index}`} className="poster-container">
+                <img className="poster" alt={Title} src={Poster} />
+            </div>
+            <button className="circleButton" type="button">+</button>
         </div>
     ) 
 
-const renderResults = (results) => 
-    results ? renderPosters(results) : defaultResultMsg();
+const renderResults = (results) =>
+    <div className="results">{results ? renderPosters(results) : defaultResultMsg()}</div>
 
 const renderSearchError = (searchErrorMsg) =>
     <h2>{searchErrorMsg}</h2>

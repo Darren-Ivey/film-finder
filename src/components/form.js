@@ -4,7 +4,7 @@ import { getVideos } from "../services/network";
 export default class Form extends React.Component {
 
     state = {
-        searchTerm: "",
+        searchTerm: "star wars",
         results: undefined,
         loading: false,
     }
@@ -29,7 +29,6 @@ export default class Form extends React.Component {
                 })
             })
             .catch((error) => {
-                console.log(`There is a service error of ${error}`)
                 this.setState({
                     loading: false,
                 }, () => {
@@ -42,7 +41,6 @@ export default class Form extends React.Component {
 
     render() {
         const { loading, searchTerm } = this.state;
-
         return (
             <div className="Video Finder">
                 <h1>Find a video!</h1>

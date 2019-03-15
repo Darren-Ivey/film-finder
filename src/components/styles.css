@@ -1,4 +1,8 @@
 
+div {
+    box-sizing: border-box;
+}
+
 .poster {
     width: 100%;
     transition: all .2s;
@@ -10,11 +14,41 @@
 }
 
 .poster-container {
-    width: 200px;
-    height: 200px;
-    position: relative;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     border-radius: 50%;
-    margin: 16px;
     display: inline-block;
+    position: relative;
+}
+
+.result-container {
+    margin: 16px;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    position: relative;
+}
+
+.results-container {
+    display: flex;
+}
+
+.circleButton {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color:#333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.circleButton:hover {
+    color:#32CD32;
 }
