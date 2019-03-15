@@ -14,11 +14,8 @@ const renderMyFilms = (films) =>
         }
     </div>
 
-const renderEmpty = () =>
-    <h2>No films selected</h2>
-
 const MyFilms = ({films}) => 
-    films.length > 0 ? renderMyFilms(films) : renderEmpty()
+    films.length > 0 && renderMyFilms(films)
 
 
 export default MyFilms;

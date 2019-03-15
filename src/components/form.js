@@ -4,7 +4,7 @@ import { getVideos } from "../services/network";
 export default class Form extends React.Component {
 
     state = {
-        searchTerm: "star wars",
+        searchTerm: "",
         results: undefined,
         loading: false,
     }
@@ -26,6 +26,8 @@ export default class Form extends React.Component {
                 this.props.handleResponse(res)
                 this.setState({
                     loading: false,
+                }, () => {
+                    this.props.searchTerm(this.state.searchTerm)
                 })
             })
             .catch((error) => {
@@ -36,7 +38,6 @@ export default class Form extends React.Component {
                 })
             })
         })
-
     }
 
     render() {

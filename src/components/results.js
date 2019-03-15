@@ -1,32 +1,35 @@
 import React from 'react';
 import "./styles.css";
 
-const defaultResultMsg = () =>
-    <h2>There is nothing to see here</h2>
+export default class Results extends React.Component {
 
-const renderPosters = (films, addToMyList) => 
-    <div>
-        <h2>We found:</h2>
-        { films.map(({Poster, Title}, index) =>
-            <div key={`poster-${index}-${Title}`} className="result-container">
-                <div className="poster-container">
-                    <img className="poster" alt={Title} src={Poster} />
-                </div>
-                <button onClick={()=> {addToMyList(films[index])}} className="circleButton" type="button">+</button>
-            </div>)}
-    </div>
+    renderSearchError = () => () =>
+        <h2>{this.props.searchErrorMsg}</h2>
 
-const renderResults = (results, addToMyList) =>
-    <div>
-        {results ? renderPosters(results, addToMyList) : defaultResultMsg()}
-    </div>
+    renderPosters () {
+        const { addToMyList, moreResults, results } = this.props;
 
-const renderSearchError = (searchErrorMsg) =>
-    <h2>{searchErrorMsg}</h2>
+        return (
+            <div>
+                <h2>We found:</h2>
+                { results.map(({Poster, Title}, index) =>
+                    <div key={`poster-${index}-${Title}`} className="result-container">
+                        <div className="poster-container">
+                            <img className="poster" alt={Title} src={Poster} />
+                        </div>
+                        <button onClick={()=> {addToMyList(results[index])}} className="circleButton" type="button">+</button>
+                    </div>)}
+                <button onClick={moreResults} className="moreButton">More results</button>
+            </div>
+        )
+    }
 
-const Results = ({results, searchErrorMsg, searchError, addToMyList}) =>
-    <div className="results">
-        { searchError ? renderSearchError(searchErrorMsg) : renderResults(results, addToMyList) }
-    </div>
+    render () {
+        const { searchError, results } = this.props;
 
-export default Results;
+        return (
+        <div className="results">
+            { searchError ? this.renderSearchError() : results && this.renderPosters() }
+        </div>)
+    }
+}

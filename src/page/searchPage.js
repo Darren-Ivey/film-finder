@@ -7,6 +7,7 @@ import MyFilms from '../components/myfilms';
 export class SearchPage extends React.Component {
 
     state = {
+        searchTerm: undefined,
         results: undefined,
         searchError: false,
         serviceError: false,
@@ -48,10 +49,17 @@ export class SearchPage extends React.Component {
         }
     }
 
+    searchTerm = (searchTerm) => {
+        this.setState({
+            searchTerm
+        })
+    }
+
     render() {
         return (
             <div>
                 <Form
+                    searchTerm={this.searchTerm}
                     handleResponse={this.handleResponse} />
                 { this.state.serviceError && <Error /> }
                 <div className="film-view">
@@ -59,7 +67,9 @@ export class SearchPage extends React.Component {
                         searchError={this.state.searchError}
                         searchErrorMsg={this.state.searchErrorMsg}
                         results={this.state.results}
-                        addToMyList={this.addToMyList} />
+                        addToMyList={this.addToMyList}
+                        moreResults={this.moreResults}
+                        searchTerm={this.props.searchTerm} />
                     <MyFilms
                         films={this.state.selectedFilms}/>
                 </div>
