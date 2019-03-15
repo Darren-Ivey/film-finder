@@ -2,6 +2,7 @@ import React from 'react';
 import Form from '../components/form';
 import Results from '../components/results';
 import Error from '../components/error';
+import MyFilms from '../components/myfilms';
 
 export class SearchPage extends React.Component {
 
@@ -10,6 +11,7 @@ export class SearchPage extends React.Component {
         searchError: false,
         serviceError: false,
         searchErrorMsg: "",
+        selectedFilms: [],
     }
 
     handleResponse = (response) => {
@@ -28,16 +30,39 @@ export class SearchPage extends React.Component {
         }
     }
 
+    addToMyList = (film) => {
+        const {selectedFilms} = this.state;
+    
+        const isAlreadyInList = (film) =>
+            selectedFilms.some((selectedFilm) =>
+                film.imdbID === selectedFilm.imdbID)
+        
+
+        if (!isAlreadyInList(film)) {
+            this.setState({
+                selectedFilms: [...selectedFilms, film]
+            }, () => {
+                console.log(
+                    this.state)}
+            )
+        }
+    }
+
     render() {
         return (
             <div>
                 <Form
                     handleResponse={this.handleResponse} />
                 { this.state.serviceError && <Error /> }
-                <Results
-                    searchError={this.state.searchError}
-                    searchErrorMsg={this.state.searchErrorMsg}
-                    results={this.state.results} />
+                <div className="film-view">
+                    <Results
+                        searchError={this.state.searchError}
+                        searchErrorMsg={this.state.searchErrorMsg}
+                        results={this.state.results}
+                        addToMyList={this.addToMyList} />
+                    <MyFilms
+                        films={this.state.selectedFilms}/>
+                </div>
             </div>
         )
     }

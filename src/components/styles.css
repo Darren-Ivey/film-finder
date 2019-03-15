@@ -1,4 +1,8 @@
 
+body {
+    background-color: lightgray;
+}
+
 div {
     box-sizing: border-box;
 }
@@ -34,6 +38,12 @@ div {
     display: flex;
 }
 
+.results {
+    width: 60%;
+    border-right: 1px solid #999;
+    margin-bottom: 100px;
+}
+
 .circleButton {
     position: absolute;
     bottom: 0;
@@ -51,4 +61,20 @@ div {
 
 .circleButton:hover {
     color:#32CD32;
+}
+
+h2 {
+    margin: 16px;
+}
+
+.film-collection {
+    width: 40%;
+}
+
+.film-view {
+    display: flex;
+}
+
+.filmFinder {
+    margin: 16px;
 }

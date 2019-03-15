@@ -42,8 +42,8 @@ export default class Form extends React.Component {
     render() {
         const { loading, searchTerm } = this.state;
         return (
-            <div className="Video Finder">
-                <h1>Find a video!</h1>
+            <div className="filmFinder">
+                <h1>Find films!</h1>
                 <form className="form" onSubmit={this.handleSubmit}>
                     <input 
                         onChange={this.handleInputChange} 
