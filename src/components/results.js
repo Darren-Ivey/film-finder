@@ -50,7 +50,7 @@ export default class Results extends React.Component {
                 { results.map(({Poster, Title}, index) =>
                     <div key={`poster-${index}-${Title}`} className="result-container">
                         <div className="poster-container">
-                            <img className="poster" alt={Title} src={Poster} />
+                            <img title={Title} className="poster" alt={Title} src={Poster} />
                         </div>
                         <button onClick={()=> {addToMyList(results[index])}} className="circleButton" type="button">+</button>
                     </div>)}
