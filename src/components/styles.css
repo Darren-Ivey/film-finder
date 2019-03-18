@@ -78,3 +78,12 @@ h2 {
 .filmFinder {
     margin: 16px;
 }
+
+.moreButton {
+    margin: 16px;
+}
+
+.results-header {
+    display: flex;
+    flex-direction: row;
+}

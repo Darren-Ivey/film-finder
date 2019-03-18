@@ -64,12 +64,12 @@ export class SearchPage extends React.Component {
                 { this.state.serviceError && <Error /> }
                 <div className="film-view">
                     <Results
+                        handleResponse={this.handleResponse}
                         searchError={this.state.searchError}
                         searchErrorMsg={this.state.searchErrorMsg}
                         results={this.state.results}
                         addToMyList={this.addToMyList}
-                        moreResults={this.moreResults}
-                        searchTerm={this.props.searchTerm} />
+                        searchTerm={this.state.searchTerm} />
                     <MyFilms
                         films={this.state.selectedFilms}/>
                 </div>
