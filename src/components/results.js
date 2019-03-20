@@ -8,7 +8,7 @@ const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError
     const [searchNumber, setSearchNumber] = useState(1);
 
     useEffect(() => {
-        if (searchNumber > 1) {
+        if (searchNumber > 1 && loading) {
             getVideos(searchTerm, searchNumber)
             .then((res) => {
                 handleResponse(res);
