@@ -1,60 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { getVideos } from "../services/network";
 
-export default class Form extends React.Component {
+const Form = ({ handleResponse, handleError }) => {
 
-    state = {
-        searchTerm: "",
-        results: undefined,
-        loading: false,
+    const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleInputChange = (e) => {
+        setSearchTerm(e.target.value);
     }
 
-    handleInputChange = (e) => {
-        this.setState({
-            searchTerm: e.target.value
-        });
-    }
-
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        this.setState({
-            loading: true,
-        }, () => {
-            getVideos(this.state.searchTerm)
-            .then((res) => {
-                this.props.handleResponse(res)
-                this.setState({
-                    loading: false,
-                }, () => {
-                    this.props.searchTerm(this.state.searchTerm)
-                })
+        setLoading(true);
+
+        getVideos(searchTerm)
+        .then((res) => {
+            handleResponse(res);
+            setLoading(false);
             })
             .catch((error) => {
-                this.setState({
-                    loading: false,
-                }, () => {
-                    this.props.handleError();
-                })
+                setLoading(false);
+                handleError();
             })
-        })
     }
 
-    render() {
-        const { loading, searchTerm } = this.state;
-        return (
-            <div className="filmFinder">
-                <h1>Find films!</h1>
-                <form className="form" onSubmit={this.handleSubmit}>
-                    <input 
-                        onChange={this.handleInputChange} 
-                        type="search" name="search-movies" 
-                        value={searchTerm} />
-                    <button disabled={loading} type="submit">
-                        { loading ? "Finding films" : "Search" }
-                    </button>
-                </form>
-            </div>
-        )
-    }
+    return (
+        <div className="filmFinder">
+            <h1>Find films!</h1>
+            <form className="form" onSubmit={handleSubmit}>
+                <input 
+                    onChange={handleInputChange} 
+                    type="search" name="search-movies" 
+                    value={searchTerm} />
+                <button disabled={loading} type="submit">
+                    { loading ? "Finding films" : "Search" }
+                </button>
+            </form>
+        </div>
+    )
 }
+
+export default Form;
