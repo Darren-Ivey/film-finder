@@ -49,7 +49,7 @@ export class SearchPage extends React.Component {
         }
     }
 
-    searchTerm = (searchTerm) => {
+    setSearchTerm = (searchTerm) => {
         this.setState({
             searchTerm
         })
@@ -59,9 +59,9 @@ export class SearchPage extends React.Component {
         return (
             <div>
                 <Form
-                    searchTerm={this.searchTerm}
+                    setParentSearchTerm={this.setSearchTerm}
                     handleResponse={this.handleResponse} />
-                { this.state.serviceError && <Error /> }
+                    { this.state.serviceError && <Error /> }
                 <div className="film-view">
                     <Results
                         handleResponse={this.handleResponse}
@@ -69,7 +69,7 @@ export class SearchPage extends React.Component {
                         searchErrorMsg={this.state.searchErrorMsg}
                         results={this.state.results}
                         addToMyList={this.addToMyList}
-                        searchTerm={this.state.searchTerm} />
+                        searchTerm={this.state.searchTerm}/>
                     <MyFilms
                         films={this.state.selectedFilms}/>
                 </div>

@@ -1,69 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { getVideos } from "../services/network";
 import "./styles.css";
 
-export default class Results extends React.Component {
+const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError, searchErrorMsg }) => {
 
-    state = {
-        results: undefined,
-        loading: false,
-        error: undefined,
-        searchNumber: 1,
-        searchTerm: undefined
-    }
+    const [loading, setLoading] = useState(false);
+    const [searchNumber, setSearchNumber] = useState(1);
 
-    moreResults = (e) => {
-        e.preventDefault();
-
-        this.setState({
-            loading: true,
-            searchNumber: this.state.searchNumber + 1,
-        }, () => {
-            getVideos(this.props.searchTerm, this.state.searchNumber)
+    useEffect(() => {
+        if (searchNumber > 1) {
+            getVideos(searchTerm, searchNumber)
             .then((res) => {
-                this.props.handleResponse(res)
-                this.setState({
-                    loading: false,
-                })
+                handleResponse(res);
+                setLoading(false);
             })
             .catch((error) => {
-                this.setState({
-                    loading: false,
-                })
+                setLoading(false);
             })
-        })
+        }
+    });
+
+    const moreResults = (e) => {
+        e.preventDefault();
+
+        setLoading(true);
+        setSearchNumber(searchNumber + 1);
     }
 
-    renderSearchError = () => () =>
-        <h2>{this.props.searchErrorMsg}</h2>
+    const renderSearchError = () =>
+        <h2>{searchErrorMsg}</h2>
 
-    renderPosters () {
-        const { addToMyList, results } = this.props;
-        const { loading } = this.state;
-
-        return (
-            <div>
-                <div className="results-header">
-                    <h2>We found:</h2>
-                    { results && <button onClick={this.moreResults} className="moreButton">{ loading ? "Searching" : "More results" }</button> }
-                </div>
-                { results.map(({Poster, Title}, index) =>
-                    <div key={`poster-${index}-${Title}`} className="result-container">
-                        <div className="poster-container">
-                            <img title={Title} className="poster" alt={Title} src={Poster} />
-                        </div>
-                        <button onClick={()=> {addToMyList(results[index])}} className="circleButton" type="button">+</button>
-                    </div>)}
+    const renderPosters = () => (
+        <div>
+            <div className="results-header">
+                <h2>We found:</h2>
+                { results && <button onClick={moreResults} className="moreButton">{ loading ? "Searching" : "More results" }</button> }
             </div>
-        )
-    }
+            { results.map(({Poster, Title}, index) =>
+                <div key={`poster-${index}-${Title}`} className="result-container">
+                    <div className="poster-container">
+                        <img title={Title} className="poster" alt={Title} src={Poster} />
+                    </div>
+                    <button onClick={()=> {addToMyList(results[index])}} className="circleButton" type="button">+</button>
+                </div>)}
+        </div>)
 
-    render () {
-        const { searchError, results } = this.props;
-
-        return (
-            <div className="results">
-                { searchError ? this.renderSearchError() : results && this.renderPosters() }
-            </div>)
-    }
+    return (
+        <div className="results">
+            { searchError ? renderSearchError() : results && renderPosters() }
+        </div>)
 }
+
+export default Results;

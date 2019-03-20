@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getVideos } from "../services/network";
 
-const Form = ({ handleResponse, handleError }) => {
+const Form = ({ handleResponse, setParentSearchTerm }) => {
 
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(false);
@@ -14,6 +14,7 @@ const Form = ({ handleResponse, handleError }) => {
         e.preventDefault();
 
         setLoading(true);
+        setParentSearchTerm(searchTerm);
 
         getVideos(searchTerm)
         .then((res) => {
@@ -22,7 +23,6 @@ const Form = ({ handleResponse, handleError }) => {
             })
             .catch((error) => {
                 setLoading(false);
-                handleError();
             })
     }
 
