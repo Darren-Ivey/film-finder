@@ -34,8 +34,8 @@ const Form = ({ handleResponse, setParentSearchTerm }) => {
                     onChange={handleInputChange} 
                     type="search" name="search-movies" 
                     value={searchTerm} />
-                <button disabled={loading} type="submit">
-                    { loading ? "Finding films" : "Search" }
+                <button className="search-btn" disabled={loading} type="submit">
+                    { loading ? "Finding" : "Search" }
                 </button>
             </form>
         </div>

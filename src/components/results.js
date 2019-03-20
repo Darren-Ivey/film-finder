@@ -34,12 +34,12 @@ const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError
         <div>
             <div className="results-header">
                 <h2>We found:</h2>
-                { results && <button onClick={moreResults} className="moreButton">{ loading ? "Searching" : "More results" }</button> }
+                { results && <button onClick={moreResults} className="moreButton">{ loading ? "Searching" : "More results >" }</button> }
             </div>
             { results.map(({Poster, Title}, index) =>
                 <div key={`poster-${index}-${Title}`} className="result-container">
                     <div className="poster-container">
-                        <img title={Title} className="poster" alt={Title} src={Poster} />
+                        <img title={Title} className="poster poster-hover" alt={Title} src={Poster} />
                     </div>
                     <button onClick={()=> {addToMyList(results[index])}} className="circleButton" type="button">+</button>
                 </div>)}
