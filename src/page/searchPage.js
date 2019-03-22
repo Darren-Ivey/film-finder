@@ -1,79 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from '../components/form';
 import Results from '../components/results';
 import Error from '../components/error';
 import MyFilms from '../components/myfilms';
 
-export class SearchPage extends React.Component {
+const SearchPage = () => {
+    const [searchTerm, setSearchTerm] = useState(undefined);
+    const [results, setResults] = useState(undefined);
+    const [searchError, setSearchError] = useState(false);
+    const [serviceError, setServiceError] = useState(false);
+    const [searchErrorMsg, setSearchErrorMsg] = useState("");
+    const [selectedFilms, setSelectedFilms] = useState([]);
 
-    state = {
-        searchTerm: undefined,
-        results: undefined,
-        searchError: false,
-        serviceError: false,
-        searchErrorMsg: "",
-        selectedFilms: [],
-    }
-
-    handleResponse = (response) => {
+    const handleResponse = (response) => {
         if (!response.Error) {
-            this.setState({
-                searchError: false,
-                serviceError: false,
-                searchErrorMsg: "",
-                results: response.Search
-            })
+            setSearchError(false);
+            setServiceError(false);
+            setSearchErrorMsg("");
+            setResults(response.Search);
         } else {
-            this.setState({
-                searchError: true,
-                searchErrorMsg: response.Error,
-            })
+            setSearchError(true);
+            setSearchErrorMsg(response.Error);
         }
     }
 
-    addToMyList = (film) => {
-        const {selectedFilms} = this.state;
-    
+    const addToMyList = (film) => {    
         const isAlreadyInList = (film) =>
             selectedFilms.some((selectedFilm) =>
-                film.imdbID === selectedFilm.imdbID)
-        
-
+                film.imdbID === selectedFilm.imdbID);
         if (!isAlreadyInList(film)) {
-            this.setState({
-                selectedFilms: [...selectedFilms, film]
-            }, () => {
-                console.log(
-                    this.state)}
-            )
+            setSelectedFilms([...selectedFilms, film]);
         }
     }
 
-    setSearchTerm = (searchTerm) => {
-        this.setState({
-            searchTerm
-        })
-    }
-
-    render() {
-        return (
-            <div>
-                <Form
-                    setParentSearchTerm={this.setSearchTerm}
-                    handleResponse={this.handleResponse} />
-                    { this.state.serviceError && <Error /> }
-                <div className="film-view">
-                    <Results
-                        handleResponse={this.handleResponse}
-                        searchError={this.state.searchError}
-                        searchErrorMsg={this.state.searchErrorMsg}
-                        results={this.state.results}
-                        addToMyList={this.addToMyList}
-                        searchTerm={this.state.searchTerm}/>
-                    <MyFilms
-                        films={this.state.selectedFilms}/>
-                </div>
+    return (
+        <div>
+            <Form
+                setParentSearchTerm={setSearchTerm}
+                handleResponse={handleResponse} />
+                { serviceError && <Error /> }
+            <div className="film-view">
+                <Results
+                    handleResponse={handleResponse}
+                    searchError={searchError}
+                    searchErrorMsg={searchErrorMsg}
+                    results={results}
+                    addToMyList={addToMyList}
+                    searchTerm={searchTerm}/>
+                <MyFilms
+                    films={selectedFilms}/>
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default SearchPage;
