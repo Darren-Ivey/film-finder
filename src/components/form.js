@@ -27,7 +27,7 @@ const Form = ({ handleResponse, setParentSearchTerm }) => {
     }
 
     return (
-        <div className="filmFinder">
+        <div className="film-finder">
             <h1>Find films!</h1>
             <form className="form" onSubmit={handleSubmit}>
                 <input 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getVideos } from "../services/network";
+import validUrl from "valid-url";
 import "./styles.css";
 
 const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError, searchErrorMsg }) => {
@@ -21,11 +22,17 @@ const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError
     });
 
     const moreResults = (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
         setLoading(true);
         setSearchNumber(searchNumber + 1);
     }
+
+    const renderImage = (Title, Poster) =>
+        <img title={Title} className="poster poster-hover" alt={Title} src={Poster} />
+
+    const renderMissingImage = () =>
+        <div className="poster-not-available">Poster not available</div>
 
     const renderSearchError = () =>
         <h2>{searchErrorMsg}</h2>
@@ -34,14 +41,15 @@ const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError
         <div>
             <div className="results-header">
                 <h2>We found:</h2>
-                { results && <button onClick={moreResults} className="moreButton">{ loading ? "Searching" : "More results >" }</button> }
+                { results && <button onClick={moreResults} className="more-button">{ loading ? "Searching" : "More results >" }</button> }
             </div>
             { results.map(({Poster, Title}, index) =>
                 <div key={`poster-${index}-${Title}`} className="result-container">
+                    <div className="poster-title">{Title}</div>
                     <div className="poster-container">
-                        <img title={Title} className="poster poster-hover" alt={Title} src={Poster} />
+                        {validUrl.isUri(Poster) ? renderImage(Title, Poster) : renderMissingImage()}
                     </div>
-                    <button onClick={()=> {addToMyList(results[index])}} className="circleButton" type="button">+</button>
+                    <button onClick={()=> {addToMyList(results[index])}} className="circle-button" type="button">+</button>
                 </div>)}
         </div>)
 
