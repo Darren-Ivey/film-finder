@@ -145,7 +145,8 @@ h2 {
 .poster-title {
     display: flex;
     justify-content: center;
-    margin-bottom: 16px;
+    margin-top: 16px;
+    margin-bottom: 12px;
     font-weight: bold;
     max-width: 200px;
     text-align: center;
