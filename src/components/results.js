@@ -49,7 +49,7 @@ const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError
                     <div className="poster-container">
                         {validUrl.isUri(Poster) ? renderImage(Title, Poster) : renderMissingImage()}
                     </div>
-                    <button onClick={()=> {addToMyList(results[index])}} className="circle-button" type="button">+</button>
+                    <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button" type="button">+</button>
                 </div>)}
         </div>)
 
