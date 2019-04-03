@@ -3,7 +3,7 @@ import { getVideos } from "../services/network";
 import validUrl from "valid-url";
 import "./styles.css";
 
-const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError, searchErrorMsg, openModal }) => {
+export const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError, searchErrorMsg, openModal }) => {
 
     const [loading, setLoading] = useState(false);
     const [searchNumber, setSearchNumber] = useState(1);
@@ -58,5 +58,3 @@ const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError
             { searchError ? renderSearchError() : results && renderPosters() }
         </div>)
 }
-
-export default Results;

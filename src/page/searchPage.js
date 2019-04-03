@@ -1,11 +1,11 @@
 import React, { useReducer } from 'react';
-import Form from '../components/form';
-import Results from '../components/results';
-import Error from '../components/error';
-import MyFilms from '../components/myfilms';
+import { Form } from '../components/form';
+import { Results } from '../components/results';
+import { Error } from '../components/error';
+import { MyFilms } from '../components/myfilms';
 import Modal from 'react-modal';
 
-const SearchPage = () => {
+export const SearchPage = () => {
     const initialState = {
         searchTerm: undefined,
         results: undefined,
@@ -123,5 +123,3 @@ const SearchPage = () => {
         </div>
     )
 }
-
-export default SearchPage;

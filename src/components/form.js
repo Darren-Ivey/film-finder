@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getVideos } from "../services/network";
 
-const Form = ({ handleResponse, setParentSearchTerm }) => {
+export const Form = ({ handleResponse, setParentSearchTerm }) => {
 
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(false);
@@ -41,5 +41,3 @@ const Form = ({ handleResponse, setParentSearchTerm }) => {
         </div>
     )
 }
-
-export default Form;
