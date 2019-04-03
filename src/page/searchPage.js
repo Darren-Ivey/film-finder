@@ -133,7 +133,8 @@ export const SearchPage = () => {
                 >
                 <div className="modal__inner">
                     <button className="modal__close" onClick={closeModal}>X</button>
-                    { state.filmForModal && <img title={state.filmForModal.Title} className="poster" alt={state.filmForModal.Title} src={state.filmForModal.Poster} /> }
+                    { state.filmForModal && <img title={state.filmForModal.Title} className="modal__poster" alt={state.filmForModal.Title} src={state.filmForModal.Poster} /> }
+                    { state.filmForModal && <p className="modal__title">{state.filmForModal.Title} ({state.filmForModal.Year})</p>}
                 </div>
             </Modal>
         </div>

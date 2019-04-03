@@ -49,14 +49,18 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
                 <h2>We found:</h2>
                 { results && <button onClick={moreResults} className="more-button">{ loading ? "Searching" : "More results >" }</button> }
             </div>
-            { results.map((Film, index) =>
-                <div key={`poster-${index}-${Film.Title}`} className="results__container">
-                    <div className="poster__title">{Film.Title}</div>
-                    <div onClick={() => {openModalIfValidUrl(Film)}} className="poster__container">
-                        {validUrl.isUri(Film.Poster) ? renderImage(Film.Title, Film.Poster) : renderMissingImage()}
+            { results.map((Film, index) => {
+                const validImgUrl = validUrl.isUri(Film.Poster);
+                return (
+                    <div key={`poster-${index}-${Film.Title}`} className="results__container">
+                        <div className="poster__title">{Film.Title}</div>
+                        <div onClick={() => {openModalIfValidUrl(Film)}} className="poster__container" style={validImgUrl && {cursor: "pointer"}}>
+                            {validImgUrl ? renderImage(Film.Title, Film.Poster) : renderMissingImage()}
+                        </div>
+                        <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button circle-button--positive" type="button">+</button>
                     </div>
-                    <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button circle-button--positive" type="button">+</button>
-                </div>)}
+                )
+            })}
         </div>)
 
     return (
