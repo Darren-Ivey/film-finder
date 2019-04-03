@@ -98,7 +98,7 @@ export const SearchPage = () => {
                 setParentSearchTerm={setSearchTerm}
                 handleResponse={handleResponse} />
                 { state.serviceError && <Error /> }
-            <div className="film-view">
+            <div className="film__view">
                 <Results
                     handleResponse={handleResponse}
                     searchError={state.searchError}
@@ -115,8 +115,8 @@ export const SearchPage = () => {
                 isOpen={state.modalOpen}
                 onRequestClose={closeModal}
                 >
-                <div className="modal-inner">
-                    <button className="modal-close" onClick={closeModal}>X</button>
+                <div className="modal__inner">
+                    <button className="modal__close" onClick={closeModal}>X</button>
                     { state.filmForModal && <img title={state.filmForModal.Title} className="poster" alt={state.filmForModal.Title} src={state.filmForModal.Poster} /> }
                 </div>
             </Modal>

@@ -5,8 +5,8 @@ export const getVideos = async (searchTerm, page = 1) => {
     const url = `http://www.omdbapi.com/?s=${searchTerm}&apikey=${OMDB_API_KEY}&page=${page}`
 
     try {
-        const result = await fetch(url);
-        const data = await result.json();
+        const results = await fetch(url);
+        const data = await results.json();
         return data;
     } catch(err) {
         return err;

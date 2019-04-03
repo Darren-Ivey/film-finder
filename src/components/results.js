@@ -29,10 +29,10 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
     }
 
     const renderImage = (Title, Poster) =>
-        <img title={Title} className="poster poster-hover" alt={Title} src={Poster} />
+        <img title={Title} className="poster poster--hover" alt={Title} src={Poster} />
 
     const renderMissingImage = () =>
-        <div className="poster-not-available">Poster not available</div>
+        <div className="poster__button">Poster not available</div>
 
     const renderSearchError = () =>
         <h2>{searchErrorMsg}</h2>
@@ -45,14 +45,14 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
 
     const renderPosters = () => (
         <div>
-            <div className="results-header">
+            <div className="results__header">
                 <h2>We found:</h2>
                 { results && <button onClick={moreResults} className="more-button">{ loading ? "Searching" : "More results >" }</button> }
             </div>
             { results.map((Film, index) =>
-                <div key={`poster-${index}-${Film.Title}`} className="result-container">
-                    <div className="poster-title">{Film.Title}</div>
-                    <div onClick={() => {openModalIfValidUrl(Film)}} className="poster-container">
+                <div key={`poster-${index}-${Film.Title}`} className="results__container">
+                    <div className="poster__title">{Film.Title}</div>
+                    <div onClick={() => {openModalIfValidUrl(Film)}} className="poster__container">
                         {validUrl.isUri(Film.Poster) ? renderImage(Film.Title, Film.Poster) : renderMissingImage()}
                     </div>
                     <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button" type="button">+</button>

@@ -11,6 +11,10 @@ div {
     box-sizing: border-box;
 }
 
+button:hover {
+    opacity: 0.7;
+}
+
 .poster {
     width: 100%;
     transition: all .2s;
@@ -21,7 +25,7 @@ div {
     cursor: pointer;
 }
 
-.poster-container {
+.poster__container {
     width: 200px;
     height: 200px;
     overflow: hidden;
@@ -32,7 +36,7 @@ div {
     background: #333;
 }
 
-.poster-not-available {
+.poster__button {
     font-size: 18px;
     justify-content: center;
     align-items: center;
@@ -42,24 +46,31 @@ div {
     font-weight: bold;
 }
 
-.poster-not-available--small {
+.poster__button--small {
     font-size: 11px;
     padding: 8px;
-}
-
-.result-container {
-    margin: 16px;
-    display: inline-block;
-    position: relative;
-}
-
-.results-container {
-    display: flex;
 }
 
 .results {
     width: 60%;
     margin-bottom: 100px;
+}
+
+.results__container {
+    margin: 16px;
+    display: inline-block;
+    position: relative;
+}
+
+.results__container:hover .circle-button {
+    display: block;
+}
+
+
+.results__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .circle-button {
@@ -83,26 +94,38 @@ div {
     opacity: 1;
 }
 
-.result-container:hover .circle-button {
-    display: block;
-}
-
 h2 {
     margin: 16px;
 }
 
-.film-collection {
+.my-film {
     width: 40%;
     background-color: #D3D3D3;
     margin: 16px;
 }
 
-.film-view {
+.film__view {
     display: flex;
 }
 
-.film-finder {
+.film__finder {
     margin: 16px;
+}
+
+.my-film__row {
+    display: flex;
+    align-items: center;
+}
+
+.my-film__poster-container {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    border: 1px #A9A9A9 solid;
+    background: #333;
 }
 
 .more-button {
@@ -115,13 +138,7 @@ h2 {
     width: 100px;
 }
 
-.results-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.my-film-container {
+.my-film__container {
     margin: 8px 16px;
     width: 80px;
     height: 80px;
@@ -129,17 +146,8 @@ h2 {
     position: relative;
 }
 
-.my-film-row {
-    display: flex;
-    align-items: center;
-}
 
-.my-film-row .poster-container {
-    width: 80px;
-    height: 80px;
-}
-
-.search-btn {
+.search__button {
     margin: 16px;
     background: green;
     padding: 8px;
@@ -149,7 +157,7 @@ h2 {
     width: 80px;
 }
 
-.poster-title {
+.poster__title {
     display: flex;
     justify-content: center;
     margin-top: 16px;
@@ -166,12 +174,12 @@ h2 {
     height: 100%;
 }
 
-.modal-inner {
+.modal__inner {
     width: 300px;
     text-align: right;
 }
 
-.modal-close {
+.modal__close {
     margin: 0 -16px 8px 0;
     border: none;
     color: white;
@@ -182,8 +190,4 @@ h2 {
     font-size: 16px;
     line-height: 16px;
     font-weight: 800;
-}
-
-button:hover {
-    opacity: 0.7;
 }
