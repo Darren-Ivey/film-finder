@@ -24,7 +24,7 @@ const renderMyFilms = (films, removeFromMyList, sortByDate, sortByName) =>
                             {validUrl.isUri(Poster) ? renderImage(Title, Poster) : renderMissingImage()}                            
                         </div>
                     </div>
-                    <p>{Title} {Year && `(${Year})`}</p>
+                    <p className="my-film__details">{Title} {Year && `(${Year})`}</p>
                     <button onClick={() => { removeFromMyList(imdbID) }} 
                         title="Remove film from your collection" 
                         className="circle-button circle-button--negative" 

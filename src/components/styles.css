@@ -86,7 +86,7 @@ button:hover {
 }
 
 .circle-button--negative {
-    opacity: 0.7;
+    opacity: 0.4;
     background-color: #8B0000;
     display: flex;
     align-items: center;
@@ -104,7 +104,7 @@ button:hover {
 }
 
 .circle-button--negative:hover {
-    opacity: 0.5;
+    opacity: 0.8;
 }
 
 .circle-button--positive {
@@ -159,6 +159,18 @@ h2 {
     background: #333;
 }
 
+.my-film__container {
+    margin: 8px 16px;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    position: relative;
+}
+
+.my-film__details {
+    max-width: 300px;
+}
+
 .more-button {
     margin: 16px;
     background: lightgray;
@@ -168,15 +180,6 @@ h2 {
     color: black;
     width: 100px;
 }
-
-.my-film__container {
-    margin: 8px 16px;
-    width: 80px;
-    height: 80px;
-    display: inline-block;
-    position: relative;
-}
-
 
 .search__button {
     margin: 16px;
