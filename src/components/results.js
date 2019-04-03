@@ -7,7 +7,7 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
 
     const [loading, setLoading] = useState(false);
     const [searchNumber, setSearchNumber] = useState(1);
-
+ 
     useEffect(() => {
         if (searchNumber > 1 && loading) {
             getVideos(searchTerm, searchNumber)
@@ -47,7 +47,7 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
         <div>
             <div className="results__header">
                 <h2>We found:</h2>
-                { results && <button onClick={moreResults} className="more-button">{ loading ? "Searching" : "More results >" }</button> }
+                { results && <button onClick={moreResults} className="more-button">{ loading ? "searching" : "more results >" }</button> }
             </div>
             { results.map((Film, index) => {
                 const validImgUrl = validUrl.isUri(Film.Poster);
@@ -57,7 +57,7 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
                         <div onClick={() => {openModalIfValidUrl(Film)}} className="poster__container" style={validImgUrl && {cursor: "pointer"}}>
                             {validImgUrl ? renderImage(Film.Title, Film.Poster) : renderMissingImage()}
                         </div>
-                        <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button circle-button--positive" type="button">+</button>
+                        <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button circle-button--positive" type="button" />
                     </div>
                 )
             })}

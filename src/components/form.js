@@ -14,9 +14,9 @@ export const Form = ({ handleResponse, setParentSearchTerm }) => {
         e.preventDefault();
 
         setLoading(true);
-        setParentSearchTerm(searchTerm);
+        setParentSearchTerm(searchTerm.trim());
 
-        getVideos(searchTerm)
+        getVideos(searchTerm.trim())
         .then((res) => {
             handleResponse(res);
             setLoading(false);
@@ -27,7 +27,7 @@ export const Form = ({ handleResponse, setParentSearchTerm }) => {
     }
 
     return (
-        <div className="film__finder">
+        <div className="film__finder"> 
             <h1>Find films!</h1>
             <form className="form" onSubmit={handleSubmit}>
                 <input 
@@ -37,7 +37,7 @@ export const Form = ({ handleResponse, setParentSearchTerm }) => {
                     className="search__input"
                     value={searchTerm} />
                 <button className="search__button" disabled={loading} type="submit">
-                    { loading ? "Finding" : "Search" }
+                    { loading ? "finding" : "search" }
                 </button>
             </form>
         </div>
