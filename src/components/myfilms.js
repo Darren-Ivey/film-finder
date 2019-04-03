@@ -18,7 +18,7 @@ const renderMyFilms = (films) =>
     </div>
 
 const MyFilms = ({films}) => 
-    films.length > 0 && renderMyFilms(films)
+    (films.length > 0) ? renderMyFilms(films) : null;
 
 
 export default MyFilms;

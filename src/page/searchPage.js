@@ -3,6 +3,7 @@ import Form from '../components/form';
 import Results from '../components/results';
 import Error from '../components/error';
 import MyFilms from '../components/myfilms';
+import Modal from 'react-modal';
 
 const SearchPage = () => {
     const initialState = {
@@ -12,6 +13,8 @@ const SearchPage = () => {
         serviceError: false,
         searchErrorMsg: "",
         selectedFilms: [],
+        modalOpen: false,
+        filmForModal: undefined,
     };
 
     const stateReducer = (state, {type, payload}) => {
@@ -41,9 +44,21 @@ const SearchPage = () => {
             ...state,
             searchTerm: payload,
         };
-          default:
+        case 'OPEN_MODAL':
+            return {
+                ...state,
+                modalOpen: true,
+                filmForModal: payload,
+        };
+        case 'CLOSE_MODAL':
+            return {
+                ...state,
+                modalOpen: false,
+                filmForModal: undefined,
+        };
+        default:
             throw new Error();
-        }
+        };
     }
 
     const [state, dispatch] = useReducer(stateReducer, initialState);
@@ -69,6 +84,14 @@ const SearchPage = () => {
         dispatch({type: 'SET_SEARCH_TERM', payload: searchTerm});
     }
 
+    const closeModal = () => {
+        dispatch({type: 'CLOSE_MODAL'});
+    }
+
+    const openModal = (filmForModal) => {
+        dispatch({type: 'OPEN_MODAL', payload: filmForModal});
+    }
+
     return (
         <div>
             <Form
@@ -82,10 +105,21 @@ const SearchPage = () => {
                     searchErrorMsg={state.searchErrorMsg}
                     results={state.results}
                     addToMyList={addToMyList}
-                    searchTerm={state.searchTerm}/>
+                    searchTerm={state.searchTerm}
+                    openModal={openModal} />
                 <MyFilms
                     films={state.selectedFilms}/>
             </div>
+            <Modal
+                className="modal"
+                isOpen={state.modalOpen}
+                onRequestClose={closeModal}
+                >
+                <div className="modal-inner">
+                    <button className="modal-close" onClick={closeModal}>X</button>
+                    { state.filmForModal && <img title={state.filmForModal.Title} className="poster" alt={state.filmForModal.Title} src={state.filmForModal.Poster} /> }
+                </div>
+            </Modal>
         </div>
     )
 }
