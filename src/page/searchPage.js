@@ -18,9 +18,9 @@ export const SearchPage = () => {
     };
 
     // Helper function
-    const removeFilm = (indexToRemove, selectedFilms) =>
-        selectedFilms.filter((film, index) => 
-            index !== indexToRemove
+    const removeFilm = (id, selectedFilms) =>
+        selectedFilms.filter((film) => 
+            film.imdbID !== id
         );
  
     const stateReducer = (state, {type, payload}) => {
@@ -91,8 +91,8 @@ export const SearchPage = () => {
         }
     }
 
-    const removeFromMyList = (index) =>
-        dispatch({type: 'REMOVE_FILM', payload: index});
+    const removeFromMyList = (id) =>
+        dispatch({type: 'REMOVE_FILM', payload: id});
 
     const setSearchTerm = (searchTerm) => {
         dispatch({type: 'SET_SEARCH_TERM', payload: searchTerm});

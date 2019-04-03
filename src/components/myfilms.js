@@ -12,7 +12,7 @@ const renderMyFilms = (films, removeFromMyList) =>
     <div className="my-film">
         <h2>Your collection:</h2>
         {
-            films.map(({Poster, Title}, index) =>
+            films.map(({Poster, Title, imdbID}, index) =>
                 <div key={`my-film__poster-${index}-${Title}`} className="my-film__row">
                     <div className="my-film__container">
                         <div className="my-film__poster-container">
@@ -20,7 +20,7 @@ const renderMyFilms = (films, removeFromMyList) =>
                         </div>
                     </div>
                     <p>{Title}</p>
-                    <button onClick={() => {removeFromMyList(index)}} 
+                    <button onClick={() => { removeFromMyList(imdbID) }} 
                         title="Remove film to your collection" 
                         className="circle-button circle-button--negative" 
                         type="button">x</button>
