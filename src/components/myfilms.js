@@ -8,7 +8,7 @@ const renderMissingImage = () =>
 const renderImage =(Title, Poster) =>
     <img title={Title} className="poster" alt={Title} src={Poster} />
 
-const renderMyFilms = (films) => 
+const renderMyFilms = (films, removeFromMyList) => 
     <div className="my-film">
         <h2>Your collection:</h2>
         {
@@ -20,9 +20,13 @@ const renderMyFilms = (films) =>
                         </div>
                     </div>
                     <p>{Title}</p>
+                    <button onClick={() => {removeFromMyList(index)}} 
+                        title="Remove film to your collection" 
+                        className="circle-button circle-button--negative" 
+                        type="button">x</button>
                 </div>)
         }
     </div>
 
-export const MyFilms = ({films}) => 
-    (films.length > 0) ? renderMyFilms(films) : null;
+export const MyFilms = ({films, removeFromMyList}) => 
+    (films.length > 0) ? renderMyFilms(films, removeFromMyList) : null;

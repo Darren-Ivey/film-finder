@@ -55,7 +55,7 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
                     <div onClick={() => {openModalIfValidUrl(Film)}} className="poster__container">
                         {validUrl.isUri(Film.Poster) ? renderImage(Film.Title, Film.Poster) : renderMissingImage()}
                     </div>
-                    <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button" type="button">+</button>
+                    <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button circle-button--positive" type="button">+</button>
                 </div>)}
         </div>)
 

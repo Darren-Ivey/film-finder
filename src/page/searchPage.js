@@ -17,6 +17,12 @@ export const SearchPage = () => {
         filmForModal: undefined,
     };
 
+    // Helper function
+    const removeFilm = (indexToRemove, selectedFilms) =>
+        selectedFilms.filter((film, index) => 
+            index !== indexToRemove
+        );
+ 
     const stateReducer = (state, {type, payload}) => {
         switch (type) {
         case 'SEARCH_SUCCESS':
@@ -38,6 +44,11 @@ export const SearchPage = () => {
             return {
             ...state,
             selectedFilms: [...state.selectedFilms, payload],
+        };
+        case 'REMOVE_FILM':
+            return {
+            ...state,
+            selectedFilms: removeFilm(payload, state.selectedFilms),
         };
         case 'SET_SEARCH_TERM':
             return {
@@ -80,6 +91,9 @@ export const SearchPage = () => {
         }
     }
 
+    const removeFromMyList = (index) =>
+        dispatch({type: 'REMOVE_FILM', payload: index});
+
     const setSearchTerm = (searchTerm) => {
         dispatch({type: 'SET_SEARCH_TERM', payload: searchTerm});
     }
@@ -108,6 +122,7 @@ export const SearchPage = () => {
                     searchTerm={state.searchTerm}
                     openModal={openModal} />
                 <MyFilms
+                    removeFromMyList={removeFromMyList}
                     films={state.selectedFilms}/>
             </div>
             <Modal
