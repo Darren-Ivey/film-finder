@@ -33,12 +33,18 @@ div {
 }
 
 .poster-not-available {
+    font-size: 18px;
     justify-content: center;
     align-items: center;
     display: flex;
     height: 100%;
     color: white;
     font-weight: bold;
+}
+
+.poster-not-available--small {
+    font-size: 11px;
+    padding: 8px;
 }
 
 .result-container {

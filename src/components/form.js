@@ -31,8 +31,10 @@ export const Form = ({ handleResponse, setParentSearchTerm }) => {
             <h1>Find films!</h1>
             <form className="form" onSubmit={handleSubmit}>
                 <input 
-                    onChange={handleInputChange} 
-                    type="search" name="search-movies" 
+                    onChange={handleInputChange}
+                    type="search"
+                    name="search-movies"
+                    className="search-input"
                     value={searchTerm} />
                 <button className="search-btn" disabled={loading} type="submit">
                     { loading ? "Finding" : "Search" }

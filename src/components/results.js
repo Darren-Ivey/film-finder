@@ -37,6 +37,12 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
     const renderSearchError = () =>
         <h2>{searchErrorMsg}</h2>
 
+    const openModalIfValidUrl = (Film) => {
+        if(validUrl.isUri(Film.Poster)) {
+            openModal(Film);
+        }
+    }
+
     const renderPosters = () => (
         <div>
             <div className="results-header">
@@ -46,7 +52,7 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
             { results.map((Film, index) =>
                 <div key={`poster-${index}-${Film.Title}`} className="result-container">
                     <div className="poster-title">{Film.Title}</div>
-                    <div onClick={() => {openModal(Film)}} className="poster-container">
+                    <div onClick={() => {openModalIfValidUrl(Film)}} className="poster-container">
                         {validUrl.isUri(Film.Poster) ? renderImage(Film.Title, Film.Poster) : renderMissingImage()}
                     </div>
                     <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button" type="button">+</button>

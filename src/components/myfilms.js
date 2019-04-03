@@ -1,5 +1,12 @@
 import React from 'react';
+import validUrl from "valid-url";
 import "./styles.css";
+
+const renderMissingImage = () =>
+    <div className="poster-not-available poster-not-available--small">Poster not available</div>
+
+const renderImage =(Title, Poster) =>
+    <img title={Title} className="poster" alt={Title} src={Poster} />
 
 const renderMyFilms = (films) => 
     <div className="film-collection">
@@ -9,7 +16,7 @@ const renderMyFilms = (films) =>
                 <div key={`my-film-poster-${index}-${Title}`} className="my-film-row">
                     <div className="my-film-container">
                         <div className="poster-container">
-                            <img title={Title} className="poster" alt={Title} src={Poster} />
+                            {validUrl.isUri(Poster) ? renderImage(Title, Poster) : renderMissingImage()}                            
                         </div>
                     </div>
                     <p>{Title}</p>
