@@ -126,6 +126,7 @@ export const SearchPage = () => {
                     films={state.selectedFilms}/>
             </div>
             <Modal
+                ariaHideApp={false}
                 className="modal"
                 isOpen={state.modalOpen}
                 onRequestClose={closeModal}

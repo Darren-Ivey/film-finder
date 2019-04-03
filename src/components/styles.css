@@ -86,6 +86,7 @@ button:hover {
 }
 
 .circle-button--negative {
+    opacity: 0.7;
     background-color: #8B0000;
     display: inline-block;
     width: 24px;
@@ -93,6 +94,10 @@ button:hover {
     font-size: 12px;
     line-height: 22px;
     margin-left: 16px;
+}
+
+.circle-button--negative:hover {
+    opacity: 0.5;
 }
 
 .circle-button--positive {
@@ -128,6 +133,7 @@ h2 {
 .my-film__row {
     display: flex;
     align-items: center;
+    padding-right: 16px;
 }
 
 .my-film__poster-container {
