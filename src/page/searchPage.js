@@ -8,7 +8,7 @@ import Modal from 'react-modal';
 export const SearchPage = () => {
     const initialState = {
         searchTerm: undefined,
-        results: undefined,
+        results: [],
         searchError: false,
         serviceError: false,
         searchErrorMsg: "",
@@ -52,7 +52,7 @@ export const SearchPage = () => {
         case 'SEARCH_FAIL':
             return {
                 ...state,
-                results: null,
+                results: [],
                 serviceError: true,
                 searchErrorMsg: payload,
             };
