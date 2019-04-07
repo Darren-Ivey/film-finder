@@ -42,9 +42,11 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
                 return (
                     <div key={`poster-${index}-${Film.Title}`} className="results__container">
                         <div className="poster__title">{Film.Title}</div>
-                            <PosterImage
-                                Film={Film}
-                                openModal={openModal}/>
+                            <div className="poster__container">
+                                <PosterImage
+                                    Film={Film}
+                                    openModal={openModal}/>
+                            </div>
                         <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button circle-button--positive" type="button" />
                     </div>
                 )

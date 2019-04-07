@@ -1,4 +1,7 @@
 import React from 'react';
 
-export const FallbackImage = () =>
-    <div className="poster__button">Poster not available</div>
+const modifierClass = (small) => 
+    small &&"poster__button--small"
+
+export const FallbackImage = ({small}) =>
+    <div className={`poster__button ${modifierClass(small)}`}>Poster not available</div>
