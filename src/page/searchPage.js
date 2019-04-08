@@ -156,6 +156,7 @@ export const SearchPage = () => {
                     searchTerm={state.searchTerm}
                     openModal={openModal} />
                 <MyFilms
+                    openModal={openModal}
                     sortByDate={sortFilmsByDate}
                     sortByName={sortFilmsByName}
                     removeFromMyList={removeFromMyList}
