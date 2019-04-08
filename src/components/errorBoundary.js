@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export class ErrorBoundary extends Component {
     state = { hasError: false };
 
-    getDerivedStateFromError() {
+    static getDerivedStateFromError() {
         return { hasError: true };
     }
 
