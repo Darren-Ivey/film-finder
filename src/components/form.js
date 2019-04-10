@@ -28,9 +28,8 @@ export const Form = ({ handleResponse, setParentSearchTerm }) => {
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
 
-
-        return inputLength === 0 ? [] : filmNames.filter(suggestion =>
-            suggestion.word.toLowerCase().slice(0, inputLength) === inputValue
+        return inputLength === 0 ? [] : filmNames.filter(film =>
+            film.name.toLowerCase().slice(0, inputLength) === inputValue
         );
     };
 
@@ -76,7 +75,7 @@ export const Form = ({ handleResponse, setParentSearchTerm }) => {
         container: "search__input",
         suggestionsContainer: "search__suggestions-container",
         suggestionsList: "search_suggestions-list",
-        suggestionHighlighted: "search_suggestion-highlighted",
+        suggestionHighlighted: "search_suggestion-highlighted"
     };
 
     return (
