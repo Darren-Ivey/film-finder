@@ -4,6 +4,7 @@ import { Results } from '../components/results';
 import { Error } from '../components/error';
 import { MyFilms } from '../components/myfilms';
 import Modal from 'react-modal';
+import { removeFilm, sortByDate, sortByName } from '../helpers/helpers';
 
 export const SearchPage = () => {
     const initialState = {
@@ -16,28 +17,6 @@ export const SearchPage = () => {
         modalOpen: false,
         filmForModal: undefined,
     };
-
-    // Helper functions
-    const removeFilm = (id, selectedFilms) =>
-        selectedFilms.filter((film) => 
-            film.imdbID !== id
-        );
- 
-    const sortByDate = (selectedFilms) =>
-        selectedFilms.sort((a, b) => {
-            const dateA = new Date(a.Year.slice(0, 4));
-            const dateB = new Date(b.Year.slice(0, 4));
-            return dateA - dateB;
-        });
-
-    const sortByName = (selectedFilms) => 
-        selectedFilms.sort((a, b) => {
-                const titleA = a.Title.toLowerCase()
-                const titleB = b.Title.toLowerCase();
-                if (titleA < titleB) return -1;
-                if (titleA > titleB) return 1;
-                return 0;
-        });
 
     const stateReducer = (state, {type, payload}) => {
         switch (type) {
