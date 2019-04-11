@@ -253,6 +253,7 @@ form.search-form {
 .search__suggestions-container {
     position: absolute;
     background: white;
+    z-index: 100;
 }
 
 .search_suggestions-list {

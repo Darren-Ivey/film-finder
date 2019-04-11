@@ -1,53 +1,41 @@
 import React, { useState } from 'react';
-import { getVideos } from "../services/network";
+import { getVideos, getWords } from "../services/network";
 import Autosuggest from 'react-autosuggest';
 
 export const Form = ({ handleResponse, setParentSearchTerm }) => {
 
     const [value, setValue] = useState("");
     const [loading, setLoading] = useState(false);
-    const [suggestions, setSuggestions] = useState([])
-
-    const filmNames = [
-        {
-            name: "alien",
-        },
-        {
-            name: "aliens",
-        },
-        {
-            name: "alien3",
-        }
-    ];
+    const [suggestions, setSuggestions] = useState([]);
 
     const onChange = (event, { newValue }) => {
         setValue(newValue);
     };
 
-    const getSuggestions = (value) => {
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-
-        return inputLength === 0 ? [] : filmNames.filter(film =>
-            film.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
-    };
+    const topTenSuggestions = (words) =>
+        words.slice(0, 10);
 
     const onSuggestionsFetchRequested = ({ value }) => {
-        setSuggestions(getSuggestions(value));
+        getWords(value.trim())
+            .then((res) => {
+                setSuggestions(topTenSuggestions(res));
+            })
+            .catch((error) => {
+                setLoading(false);
+            })
     };
 
     const onSuggestionsClearRequested = () => {
         setSuggestions([]);
     };
 
-    const renderSuggestion = (suggestion) =>
+    const renderSuggestion = ({word}) =>
         <div className="suggestions">
-            {suggestion.name}
+            {word}
         </div>
 
     const getSuggestionValue = (suggestion) => 
-        suggestion.name;
+        suggestion.word;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -56,9 +44,9 @@ export const Form = ({ handleResponse, setParentSearchTerm }) => {
         setParentSearchTerm(value.trim().toLowerCase());
 
         getVideos(value.trim())
-        .then((res) => {
-            handleResponse(res);
-            setLoading(false);
+            .then((res) => {
+                handleResponse(res);
+                setLoading(false);
             })
             .catch((error) => {
                 setLoading(false);
