@@ -4,7 +4,14 @@ import { PosterImage } from "./posterImage";
 
 import "./styles.css";
 
-export const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError, searchErrorMsg, openModal }) => {
+export const Results = ({ 
+    searchTerm, 
+    handleResponse, 
+    addToMyList, 
+    results, 
+    searchError, 
+    searchErrorMsg, 
+    openModal }) => {
 
     const [loading, setLoading] = useState(false);
     const [searchIndex, setSearchIndex] = useState(1);

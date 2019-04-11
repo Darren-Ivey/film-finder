@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { getVideos, getWords } from "../services/network";
 import Autosuggest from 'react-autosuggest';
 
-export const Form = ({ handleResponse, setParentSearchTerm }) => {
+export const Form = ({ 
+        handleResponse, 
+        setParentSearchTerm 
+    }) => {
 
     const [value, setValue] = useState("");
     const [loading, setLoading] = useState(false);

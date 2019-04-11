@@ -2,7 +2,13 @@ import React from 'react';
 import "./styles.css";
 import { PosterImage } from "./posterImage";
 
-export const MyFilms = ({films, removeFromMyList, sortByDate, sortByName, openModal}) => 
+export const MyFilms = ({
+        films, 
+        removeFromMyList, 
+        sortByDate, 
+        sortByName, 
+        openModal
+    }) => 
     (films.length > 0) &&
         <div className="my-film">
             <h2>Your collection:</h2> 
