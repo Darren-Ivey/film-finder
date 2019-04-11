@@ -6,7 +6,7 @@ import "./styles.css";
 
 export const Results = ({ 
         searchTerm, 
-        handleResearch, 
+        handleSearch, 
         addToMyList, 
         results, 
         searchError, 
@@ -22,7 +22,7 @@ export const Results = ({
         if (searchIndex > 1 && loading) {
             getVideos(searchTerm, searchIndex)
             .then((res) => {
-                handleResearch(res);
+                handleSearch(res);
                 setLoading(false);
             })
             .catch((error) => {

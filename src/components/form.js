@@ -48,7 +48,8 @@ export const Form = ({
 
         getVideos(value.trim())
             .then((res) => {
-                handleSearch(res);
+                // Pass through initial search index
+                handleSearch(res, 1);
                 setLoading(false);
             })
             .catch((error) => {

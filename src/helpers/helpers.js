@@ -18,3 +18,7 @@ export const sortByName = (selectedFilms) =>
             if (titleA > titleB) return 1;
             return 0;
     });
+
+export const isDuplicate = (film, selectedFilms) =>
+    selectedFilms.some((selectedFilm) =>
+        film.imdbID === selectedFilm.imdbID);

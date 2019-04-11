@@ -4,7 +4,7 @@ import { Results } from '../components/results';
 import { Error } from '../components/error';
 import { MyFilms } from '../components/myfilms';
 import Modal from 'react-modal';
-import { removeFilm, sortByDate, sortByName } from '../helpers/helpers';
+import { removeFilm, sortByDate, sortByName, isDuplicate } from '../helpers/helpers';
 
 export const SearchPage = () => {
     const initialState = {
@@ -19,24 +19,17 @@ export const SearchPage = () => {
         searchIndex: 1,
     };
 
+    // Reducer
     const stateReducer = (state, {type, payload}) => {
         switch (type) {
         case 'SEARCH_SUCCESS':
             return {
                 ...state, 
-                results: payload,
+                results: payload.results,
                 searchError: false,
                 serviceError: false,
                 searchErrorMsg: "",
-                searchIndex: 1,
-            };
-        case 'RESEARCH_SUCCESS':
-            return {
-                ...state, 
-                results: payload,
-                searchError: false,
-                serviceError: false,
-                searchErrorMsg: "",
+                searchIndex: payload.searchIndex || state.searchIndex,
             };
         case 'SEARCH_FAIL':
             return {
@@ -95,27 +88,22 @@ export const SearchPage = () => {
 
     const [state, dispatch] = useReducer(stateReducer, initialState);
 
-    const handleSearch = (response) => {
+    // Action dispatchers
+    const handleSearch = (response, searchIndex) => {
         if (!response.Error) {
-            dispatch({type: 'SEARCH_SUCCESS', payload: response.Search});
-        } else {
-            dispatch({type: 'SEARCH_FAIL', payload: response.Error});
-        }
-    }
-
-    const handleResearch = (response) => {
-        if (!response.Error) {
-            dispatch({type: 'RESEARCH_SUCCESS', payload: response.Search});
+            dispatch({
+                type: 'SEARCH_SUCCESS', 
+                payload: { 
+                    results: response.Search,
+                    searchIndex,
+                }});
         } else {
             dispatch({type: 'SEARCH_FAIL', payload: response.Error});
         }
     }
 
     const addToMyList = (film) => {    
-        const isAlreadyInList = (film) =>
-            state.selectedFilms.some((selectedFilm) =>
-                film.imdbID === selectedFilm.imdbID);
-        if (!isAlreadyInList(film)) {
+        if (!isDuplicate(film, state.selectedFilms)) {
             dispatch({type: 'SELECT_FILM', payload: film});
         }
     }
@@ -155,7 +143,7 @@ export const SearchPage = () => {
                 { state.serviceError && <Error /> }
             <div className="film__view">
                 <Results
-                    handleResearch={handleResearch}
+                    handleSearch={handleSearch}
                     searchError={state.searchError}
                     searchErrorMsg={state.searchErrorMsg}
                     results={state.results}
