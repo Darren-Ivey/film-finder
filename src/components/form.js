@@ -12,6 +12,10 @@ export const Form = ({ handleResponse, setParentSearchTerm }) => {
         setValue(newValue);
     };
 
+    const onSuggestionsClearRequested = () => {
+        setSuggestions([]);
+    };
+
     const topTenSuggestions = (words) =>
         words.slice(0, 10);
 
@@ -21,12 +25,10 @@ export const Form = ({ handleResponse, setParentSearchTerm }) => {
                 setSuggestions(topTenSuggestions(res));
             })
             .catch((error) => {
+                // Silently fail
+                onSuggestionsClearRequested();
                 setLoading(false);
             })
-    };
-
-    const onSuggestionsClearRequested = () => {
-        setSuggestions([]);
     };
 
     const renderSuggestion = ({word}) =>

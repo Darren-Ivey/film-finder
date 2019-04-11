@@ -7,11 +7,11 @@ import "./styles.css";
 export const Results = ({ searchTerm, handleResponse, addToMyList, results, searchError, searchErrorMsg, openModal }) => {
 
     const [loading, setLoading] = useState(false);
-    const [searchNumber, setSearchNumber] = useState(1);
+    const [searchIndex, setSearchIndex] = useState(1);
  
     useEffect(() => {
-        if (searchNumber > 1 && loading) {
-            getVideos(searchTerm, searchNumber)
+        if (searchIndex > 1 && loading) {
+            getVideos(searchTerm, searchIndex)
             .then((res) => {
                 handleResponse(res);
                 setLoading(false);
@@ -25,12 +25,11 @@ export const Results = ({ searchTerm, handleResponse, addToMyList, results, sear
     const moreResults = (e) => {
         e.preventDefault();
         setLoading(true);
-        setSearchNumber(searchNumber + 1);
+        setSearchIndex(searchIndex + 1);
     }
 
     const renderSearchError = () =>
         <h2>{searchErrorMsg}</h2>
-
 
     const renderPosters = () => (
         <div>
