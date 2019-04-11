@@ -44,7 +44,10 @@ export const Results = ({
         <div>
             <div className="results__header">
                 <h2>We found:</h2>
-                { results && <button onClick={moreResults} className="more-button">{ loading ? "searching" : "more results >" }</button> }
+                { results && 
+                    <button onClick={moreResults} className="more-button">
+                        { loading ? "searching" : "more results >" }
+                    </button> }
             </div>
             { results.map((Film, index) => {
                 return (
@@ -55,7 +58,10 @@ export const Results = ({
                                     Film={Film}
                                     openModal={openModal}/>
                             </div>
-                        <button title="Add film to your collection" onClick={()=> {addToMyList(results[index])}} className="circle-button circle-button--positive" type="button" />
+                        <button title="Add film to your collection"
+                            onClick={()=> {addToMyList(results[index])}} 
+                            className="circle-button circle-button--positive" 
+                            type="button" />
                     </div>
                 )
             })}

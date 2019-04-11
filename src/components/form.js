@@ -30,7 +30,6 @@ export const Form = ({
             .catch((error) => {
                 // Silently fail
                 onSuggestionsClearRequested();
-                setLoading(false);
             })
     };
 
@@ -39,8 +38,7 @@ export const Form = ({
             {word}
         </div>
 
-    const getSuggestionValue = (suggestion) => 
-        suggestion.word;
+    const getSuggestionValue = ({word}) => word;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -55,10 +53,7 @@ export const Form = ({
             })
             .catch((error) => {
                 setLoading(false);
-                })
-                .catch((error) => {
-                    setLoading(false);
-                })
+            })
     }
 
     const inputProps = {
@@ -87,7 +82,7 @@ export const Form = ({
                     renderSuggestion={renderSuggestion}
                     inputProps={inputProps}
                     />
-                <button className="search__button" disabled={loading}>
+                <button type="submit" className="search__button" disabled={loading}>
                     { loading ? "finding" : "search" }
                 </button>
             </form>

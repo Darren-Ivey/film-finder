@@ -9,7 +9,7 @@ export class ErrorBoundary extends Component {
 
     render() {
         if (this.state.hasError) {
-            return <h1>Better crack open that developer console!</h1>;
+            return <h1>Sorry, there has been an error with out app...</h1>;
         }
         return this.props.children; 
     }
