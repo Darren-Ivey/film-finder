@@ -44,6 +44,7 @@ export const SearchPage = () => {
                 results: [],
                 serviceError: true,
                 searchErrorMsg: payload,
+                searchIndex: 1,
             };
         case 'SELECT_FILM':
             return {
