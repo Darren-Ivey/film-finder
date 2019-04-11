@@ -19,7 +19,6 @@ export const SearchPage = () => {
         searchIndex: 1,
     };
 
-    // Reducer
     const stateReducer = (state, {type, payload}) => {
         switch (type) {
         case 'SEARCH_SUCCESS':
