@@ -5,22 +5,24 @@ import { PosterImage } from "./posterImage";
 import "./styles.css";
 
 export const Results = ({ 
-    searchTerm, 
-    handleResponse, 
-    addToMyList, 
-    results, 
-    searchError, 
-    searchErrorMsg, 
-    openModal }) => {
+        searchTerm, 
+        handleResearch, 
+        addToMyList, 
+        results, 
+        searchError, 
+        searchErrorMsg, 
+        openModal,
+        searchIndex,
+        setSearchIndex
+    }) => {
 
     const [loading, setLoading] = useState(false);
-    const [searchIndex, setSearchIndex] = useState(1);
  
     useEffect(() => {
         if (searchIndex > 1 && loading) {
             getVideos(searchTerm, searchIndex)
             .then((res) => {
-                handleResponse(res);
+                handleResearch(res);
                 setLoading(false);
             })
             .catch((error) => {

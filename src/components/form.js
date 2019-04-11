@@ -3,7 +3,7 @@ import { getVideos, getWords } from "../services/network";
 import Autosuggest from 'react-autosuggest';
 
 export const Form = ({ 
-        handleResponse, 
+        handleSearch, 
         setParentSearchTerm 
     }) => {
 
@@ -50,12 +50,15 @@ export const Form = ({
 
         getVideos(value.trim())
             .then((res) => {
-                handleResponse(res);
+                handleSearch(res);
                 setLoading(false);
             })
             .catch((error) => {
                 setLoading(false);
-            })
+                })
+                .catch((error) => {
+                    setLoading(false);
+                })
     }
 
     const inputProps = {

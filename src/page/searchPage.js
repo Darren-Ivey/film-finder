@@ -16,11 +16,21 @@ export const SearchPage = () => {
         selectedFilms: [],
         modalOpen: false,
         filmForModal: undefined,
+        searchIndex: 1,
     };
 
     const stateReducer = (state, {type, payload}) => {
         switch (type) {
         case 'SEARCH_SUCCESS':
+            return {
+                ...state, 
+                results: payload,
+                searchError: false,
+                serviceError: false,
+                searchErrorMsg: "",
+                searchIndex: 1,
+            };
+        case 'RESEARCH_SUCCESS':
             return {
                 ...state, 
                 results: payload,
@@ -37,41 +47,46 @@ export const SearchPage = () => {
             };
         case 'SELECT_FILM':
             return {
-            ...state,
-            selectedFilms: [...state.selectedFilms, payload],
-        };
+                ...state,
+                selectedFilms: [...state.selectedFilms, payload],
+            };
         case 'REMOVE_FILM':
             return {
-            ...state,
-            selectedFilms: removeFilm(payload, state.selectedFilms),
-        };
+                ...state,
+                selectedFilms: removeFilm(payload, state.selectedFilms),
+            };
         case 'SET_SEARCH_TERM':
             return {
-            ...state,
-            searchTerm: payload,
-        };
+                ...state,
+                searchTerm: payload,
+            };
         case 'OPEN_MODAL':
             return {
                 ...state,
                 modalOpen: true,
                 filmForModal: payload,
-        };
+            };
         case 'CLOSE_MODAL':
             return {
                 ...state,
                 modalOpen: false,
                 filmForModal: undefined,
-        };
+            };
         case 'SORT_BY_DATE':
             return {
                 ...state,
                 selectedFilms: sortByDate(state.selectedFilms),
-        };
+            };
         case 'SORT_BY_NAME':
             return {
                 ...state,
                 selectedFilms: sortByName(state.selectedFilms),
-        }; 
+            };
+        case 'INCREASE_SEARCH_INDEX':
+            return {
+                ...state,
+                searchIndex: (state.searchIndex + 1),
+            }
         default:
             throw new Error();
         };
@@ -79,9 +94,17 @@ export const SearchPage = () => {
 
     const [state, dispatch] = useReducer(stateReducer, initialState);
 
-    const handleResponse = (response) => {
+    const handleSearch = (response) => {
         if (!response.Error) {
             dispatch({type: 'SEARCH_SUCCESS', payload: response.Search});
+        } else {
+            dispatch({type: 'SEARCH_FAIL', payload: response.Error});
+        }
+    }
+
+    const handleResearch = (response) => {
+        if (!response.Error) {
+            dispatch({type: 'RESEARCH_SUCCESS', payload: response.Search});
         } else {
             dispatch({type: 'SEARCH_FAIL', payload: response.Error});
         }
@@ -119,21 +142,27 @@ export const SearchPage = () => {
         dispatch({type: 'SORT_BY_NAME'});
     }
 
+    const setSearchIndex = () => {
+        dispatch({type: 'INCREASE_SEARCH_INDEX'});
+    }
+
     return (
         <div>
             <Form
                 setParentSearchTerm={setSearchTerm}
-                handleResponse={handleResponse} />
+                handleSearch={handleSearch} />
                 { state.serviceError && <Error /> }
             <div className="film__view">
                 <Results
-                    handleResponse={handleResponse}
+                    handleResearch={handleResearch}
                     searchError={state.searchError}
                     searchErrorMsg={state.searchErrorMsg}
                     results={state.results}
                     addToMyList={addToMyList}
                     searchTerm={state.searchTerm}
-                    openModal={openModal} />
+                    openModal={openModal}
+                    searchIndex={state.searchIndex} 
+                    setSearchIndex={setSearchIndex}/>
                 <MyFilms
                     openModal={openModal}
                     sortByDate={sortFilmsByDate}
