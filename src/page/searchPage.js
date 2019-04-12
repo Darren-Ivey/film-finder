@@ -28,7 +28,7 @@ export const SearchPage = () => {
                 searchError: false,
                 serviceError: false,
                 searchErrorMsg: "",
-                searchIndex: payload.searchIndex || state.searchIndex,
+                searchIndex: payload.searchIndex,
             };
         case 'SEARCH_FAIL':
             return {
@@ -75,11 +75,6 @@ export const SearchPage = () => {
                 ...state,
                 selectedFilms: sortByName(state.selectedFilms),
             };
-        case 'INCREASE_SEARCH_INDEX':
-            return {
-                ...state,
-                searchIndex: (state.searchIndex + 1),
-            }
         default:
             throw new Error();
         };
@@ -87,7 +82,6 @@ export const SearchPage = () => {
 
     const [state, dispatch] = useReducer(stateReducer, initialState);
 
-    // Action dispatchers
     const handleSearch = (response, searchIndex) => {
         if (!response.Error) {
             dispatch({
@@ -130,10 +124,6 @@ export const SearchPage = () => {
         dispatch({type: 'SORT_BY_NAME'});
     }
 
-    const setSearchIndex = () => {
-        dispatch({type: 'INCREASE_SEARCH_INDEX'});
-    }
-
     return (
         <div>
             <Form
@@ -149,8 +139,7 @@ export const SearchPage = () => {
                     addToMyList={addToMyList}
                     searchTerm={state.searchTerm}
                     openModal={openModal}
-                    searchIndex={state.searchIndex} 
-                    setSearchIndex={setSearchIndex}/>
+                    searchIndex={state.searchIndex} />
                 <MyFilms
                     openModal={openModal}
                     sortByDate={sortFilmsByDate}
@@ -166,8 +155,12 @@ export const SearchPage = () => {
                 >
                 <div className="modal__inner">
                     <button className="modal__close" onClick={closeModal}>X</button>
-                    { state.filmForModal && <img title={state.filmForModal.Title} className="modal__poster" alt={state.filmForModal.Title} src={state.filmForModal.Poster} /> }
-                    { state.filmForModal && <p className="modal__title">{state.filmForModal.Title} {state.filmForModal.Year && `(${state.filmForModal.Year})`}</p>}
+                    { state.filmForModal && 
+                        <div>
+                            <img title={state.filmForModal.Title} className="modal__poster" alt={state.filmForModal.Title} src={state.filmForModal.Poster} />
+                            <p className="modal__title">{state.filmForModal.Title} {state.filmForModal.Year && `(${state.filmForModal.Year})`}</p>
+                        </div>
+                    }
                 </div>
             </Modal>
         </div>

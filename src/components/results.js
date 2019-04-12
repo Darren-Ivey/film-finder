@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { getVideos } from "../services/network";
 import { PosterImage } from "./posterImage";
 
@@ -12,29 +12,22 @@ export const Results = ({
         searchError, 
         searchErrorMsg, 
         openModal,
-        searchIndex,
-        setSearchIndex
+        searchIndex
     }) => {
 
     const [loading, setLoading] = useState(false);
  
-    useEffect(() => {
-        if (searchIndex > 1 && loading) {
-            getVideos(searchTerm, searchIndex)
-            .then((res) => {
-                handleSearch(res);
-                setLoading(false);
-            })
-            .catch((error) => {
-                setLoading(false);
-            })
-        }
-    });
-
-    const moreResults = (e) => {
-        e.preventDefault();
+    const moreResults = () => {
         setLoading(true);
-        setSearchIndex(searchIndex + 1);
+
+        getVideos(searchTerm, searchIndex + 1)
+        .then((res) => {
+            handleSearch(res, searchIndex + 1);
+            setLoading(false);
+        })
+        .catch((error) => {
+            setLoading(false);
+        })
     }
 
     const renderSearchError = () =>
@@ -45,7 +38,7 @@ export const Results = ({
             <div className="results__header">
                 <h2>We found:</h2>
                 { results && 
-                    <button onClick={moreResults} className="more-button">
+                    <button type="submit" onClick={moreResults} className="more-button">
                         { loading ? "searching" : "more results >" }
                     </button> }
             </div>
