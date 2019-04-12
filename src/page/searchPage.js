@@ -29,6 +29,7 @@ export const SearchPage = () => {
                 serviceError: false,
                 searchErrorMsg: "",
                 searchIndex: payload.searchIndex,
+                searchTerm: payload.searchTerm || state.searchTerm,
             };
         case 'SEARCH_FAIL':
             return {
@@ -47,11 +48,6 @@ export const SearchPage = () => {
             return {
                 ...state,
                 selectedFilms: removeFilm(payload, state.selectedFilms),
-            };
-        case 'SET_SEARCH_TERM':
-            return {
-                ...state,
-                searchTerm: payload,
             };
         case 'TOGGLE_MODAL':
             return {
@@ -76,13 +72,14 @@ export const SearchPage = () => {
 
     const [state, dispatch] = useReducer(stateReducer, initialState);
 
-    const handleSearch = (response, searchIndex) => {
+    const handleSearch = (response, searchIndex, searchTerm) => {
         if (!response.Error) {
             dispatch({
                 type: 'SEARCH_SUCCESS', 
                 payload: { 
                     results: response.Search,
                     searchIndex,
+                    searchTerm,
                 }});
         } else {
             dispatch({type: 'SEARCH_FAIL', payload: response.Error});
@@ -97,10 +94,6 @@ export const SearchPage = () => {
 
     const removeFromMyList = (id) =>
         dispatch({type: 'REMOVE_FILM', payload: id});
-
-    const setSearchTerm = (searchTerm) => {
-        dispatch({type: 'SET_SEARCH_TERM', payload: searchTerm});
-    }
 
     const toggleModal = useCallback((filmForModal) => {
         dispatch({type: 'TOGGLE_MODAL', payload: filmForModal});
@@ -117,7 +110,6 @@ export const SearchPage = () => {
     return (
         <div>
             <Form
-                setParentSearchTerm={setSearchTerm}
                 handleSearch={handleSearch} />
                 { state.serviceError && <Error /> }
             <div className="film__view">

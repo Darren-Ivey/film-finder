@@ -3,8 +3,7 @@ import { getVideos, getWords } from "../services/network";
 import Autosuggest from 'react-autosuggest';
 
 export const Form = ({ 
-        handleSearch, 
-        setParentSearchTerm 
+        handleSearch,
     }) => {
 
     const [value, setValue] = useState("");
@@ -43,13 +42,13 @@ export const Form = ({
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        const formattedValue = value.trim().toLowerCase();
         setLoading(true);
-        setParentSearchTerm(value.trim().toLowerCase());
-
+        
         getVideos(value.trim())
             .then((res) => {
                 // Pass through initial search index
-                handleSearch(res, 1);
+                handleSearch(res, 1, formattedValue);
                 setLoading(false);
             })
             .catch((error) => {
