@@ -15,7 +15,7 @@ export const MyFilms = ({
             { (films.length > 1) &&
             <div className="my-film__sort-controls">
                 <button className="my-film__button" onClick={sortByDate} type="button">sort by date</button> 
-                <button className="my-film__button" onClick={sortByName}type="button">sort by name</button>
+                <button className="my-film__button" onClick={sortByName} type="button">sort by name</button>
             </div> }
             {
                 films.map((Film, index) =>

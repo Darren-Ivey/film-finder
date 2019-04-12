@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { SearchPage } from './page/searchPage';
 import { ErrorBoundary } from './components/errorBoundary'; 
 
