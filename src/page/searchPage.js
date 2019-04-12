@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useCallback } from 'react';
 import { Form } from '../components/form';
 import { Results } from '../components/results';
 import { Error } from '../components/error';
@@ -53,17 +53,11 @@ export const SearchPage = () => {
                 ...state,
                 searchTerm: payload,
             };
-        case 'OPEN_MODAL':
+        case 'TOGGLE_MODAL':
             return {
                 ...state,
-                modalOpen: true,
-                filmForModal: payload,
-            };
-        case 'CLOSE_MODAL':
-            return {
-                ...state,
-                modalOpen: false,
-                filmForModal: undefined,
+                modalOpen: !state.modalOpen,
+                filmForModal: payload || undefined,
             };
         case 'SORT_BY_DATE':
             return {
@@ -108,13 +102,9 @@ export const SearchPage = () => {
         dispatch({type: 'SET_SEARCH_TERM', payload: searchTerm});
     }
 
-    const closeModal = () => {
-        dispatch({type: 'CLOSE_MODAL'});
-    }
-
-    const openModal = (filmForModal) => {
-        dispatch({type: 'OPEN_MODAL', payload: filmForModal});
-    }
+    const toggleModal = useCallback((filmForModal) => {
+        dispatch({type: 'TOGGLE_MODAL', payload: filmForModal});
+    }, []);
 
     const sortFilmsByDate = () => {
         dispatch({type: 'SORT_BY_DATE'});
@@ -138,10 +128,10 @@ export const SearchPage = () => {
                     results={state.results}
                     addToMyList={addToMyList}
                     searchTerm={state.searchTerm}
-                    openModal={openModal}
+                    openModal={toggleModal}
                     searchIndex={state.searchIndex} />
                 <MyFilms
-                    openModal={openModal}
+                    openModal={toggleModal}
                     sortByDate={sortFilmsByDate}
                     sortByName={sortFilmsByName}
                     removeFromMyList={removeFromMyList}
@@ -151,10 +141,9 @@ export const SearchPage = () => {
                 ariaHideApp={false}
                 className="modal"
                 isOpen={state.modalOpen}
-                onRequestClose={closeModal}
                 >
                 <div className="modal__inner">
-                    <button className="modal__close" onClick={closeModal}>X</button>
+                    <button className="modal__close" onClick={toggleModal}>X</button>
                     { state.filmForModal && 
                         <div>
                             <img title={state.filmForModal.Title} className="modal__poster" alt={state.filmForModal.Title} src={state.filmForModal.Poster} />
